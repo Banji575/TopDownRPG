@@ -1,27 +1,29 @@
-import PhaserLogo from '../objects/phaserLogo'
-import FpsText from '../objects/fpsText'
-
 export default class MainScene extends Phaser.Scene {
-  fpsText
+
 
   constructor() {
     super({ key: 'MainScene' })
   }
 
   create() {
-    new PhaserLogo(this, this.cameras.main.width / 2, 0)
-    this.fpsText = new FpsText(this)
+    const map = this.make.tilemap({ key: 'cityDungeon' })
+    const tileset = map.addTilesetImage('magecity', 'tiles')
 
-    // display the Phaser.VERSION
-    this.add
-      .text(this.cameras.main.width - 15, 15, `Phaser v${Phaser.VERSION}`, {
-        color: '#000000',
-        fontSize: '24px'
-      })
-      .setOrigin(1, 0)
+    map.createLayer('ground', 'magecity')
+    map.createLayer('groundElement', 'magecity')
+
+    const barrierLayer = map.createLayer('barrier', 'magecity')
+    barrierLayer.setCollisionByProperty({ collide: true })
+
+    const debugGraphics = this.add.graphics().setAlpha(.2)
+    barrierLayer.renderDebug(debugGraphics, {
+      tileColor: null,
+      collidingTileColor: new Phaser.Display.Color(243, 243, 40),
+      faceColor: new Phaser.Display.Color(49, 39, 37, 255)
+    })
   }
 
   update() {
-    this.fpsText.update()
+
   }
 }
