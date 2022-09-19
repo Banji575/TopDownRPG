@@ -46,6 +46,35 @@ export class AnimationController {
             frames: this.anims.generateFrameNames('character', { start: 1, end: 8, prefix: 'run-up-', suffix: '.png' }),
             repeat: -1,
             frameRate: 13
+        })
+        //char idle down
+        this.anims.create({
+            key: 'character-idle-down',
+            frames: [{ key: 'character', frame: 'run-down-1.png' }]
+        })
+        //char idle up
+        this.anims.create({
+            key: 'character-idle-up',
+            frames: [{ key: 'character', frame: 'run-up-1.png' }]
+        })
+        // char idle-side
+        this.anims.create({
+            key: 'character-idle-side',
+            frames: [{ key: 'character', frame: 'run-side-1.png' }]
+        })
+        //char run down
+        this.anims.create({
+            key: 'character-run-down',
+            frames: this.anims.generateFrameNames('character', { start: 1, end: 8, prefix: 'run-down-', suffix: '.png' }),
+            repeat: -1,
+            frameRate: 13
+        })
+        // char run up
+        this.anims.create({
+            key: 'character-run-up',
+            frames: this.anims.generateFrameNames('character', { start: 1, end: 8, prefix: 'run-up-', suffix: '.png' }),
+            repeat: -1,
+            frameRate: 13
 
         })
         //char run side
@@ -56,6 +85,7 @@ export class AnimationController {
             frameRate: 13
 
         })
+
     }
 
     #enemyAnims() {
