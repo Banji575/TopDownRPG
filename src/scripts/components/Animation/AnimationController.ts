@@ -83,6 +83,13 @@ export class AnimationController {
             frames: this.anims.generateFrameNames('character', { start: 1, end: 8, prefix: 'run-side-', suffix: '.png' }),
             repeat: -1,
             frameRate: 13
+        })
+
+        this.anims.create({
+            key: 'character-faint',
+            frames: this.anims.generateFrameNames('character', { start: 1, end: 4, prefix: 'faint-', suffix: '.png' }),
+            repeat: 0,
+            frameRate: 13
 
         })
 

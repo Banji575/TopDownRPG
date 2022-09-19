@@ -10,7 +10,7 @@ const config = {
   type: Phaser.AUTO,
   backgroundColor: '#ffffff',
   scale: {
-    zoom: 1.5,
+
     parent: 'phaser-game',
     // mode: Phaser.Scale.FIT,
     // autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -21,7 +21,7 @@ const config = {
   physics: {
     default: 'arcade',
     arcade: {
-      debug: true,
+      debug: false,
 
     }
   }

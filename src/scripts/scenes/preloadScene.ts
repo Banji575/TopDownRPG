@@ -13,6 +13,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('heartFull', 'assets/img/heartFull.png')
     this.load.image('heartEmpty', 'assets/img/heartEmpty.png')
 
+    this.load.image('sword', 'assets/img/sword.png')
+
   }
 
   create() {

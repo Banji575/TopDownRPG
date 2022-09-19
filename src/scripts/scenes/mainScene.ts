@@ -9,15 +9,11 @@ export default class MainScene extends Phaser.Scene {
 
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys
   private character: Player
-  private enemy: Phaser.GameObjects.Sprite
   private enemys: Phaser.Physics.Arcade.Group
-  private enemySpeed: number
-  private hitCount: number
+  private playerEnemyCollider: Phaser.Physics.Arcade.Collider
 
   constructor() {
     super({ key: 'MainScene' })
-    this.enemySpeed = 3
-
   }
 
   preload() {
@@ -30,24 +26,11 @@ export default class MainScene extends Phaser.Scene {
     animController.create(typeAnimation.enemy)
     animController.create(typeAnimation.character)
 
-    const map = this.make.tilemap({ key: 'cityDungeon' })
-    const tileset = map.addTilesetImage('magecity', 'tiles')
+    const { barrierLayer } = this.createMap()
+    this.createDebug(barrierLayer)
 
-    map.createLayer('ground', 'magecity')
-    map.createLayer('groundElement', 'magecity')
+    const { sword } = this.createSword()
 
-    const barrierLayer = map.createLayer('barrier', 'magecity')
-    barrierLayer.setCollisionByProperty({ collide: true })
-
-    const debugGraphics = this.add.graphics().setAlpha(.2)
-    barrierLayer.renderDebug(debugGraphics, {
-      tileColor: null,
-      collidingTileColor: new Phaser.Display.Color(243, 243, 40),
-      faceColor: new Phaser.Display.Color(49, 39, 37, 255)
-    })
-
-    this.character = this.add.player(128, 128, 'character', 'run-down-1.png')
-    this.cameras.main.startFollow(this.character, false, .6, .6)
 
     this.enemys = this.physics.add.group({
       classType: Enemy,
@@ -57,15 +40,17 @@ export default class MainScene extends Phaser.Scene {
       }
     })
 
+    this.character = this.createCharacter()
+    this.character.setSword(sword)
 
-
-    this.enemys.get(100, 100, 'enemy')
-    this.enemys.get(150, 150, 'enemy')
+    this.enemys.get(200, 200, 'enemy')
+    this.enemys.get(250, 250, 'enemy')
 
     this.physics.add.collider(barrierLayer, this.character)
     this.physics.add.collider(barrierLayer, this.enemys)
-
-    this.physics.add.collider(this.character, this.enemys, this.hitDamage, undefined, this)
+    this.physics.add.collider(sword, barrierLayer)
+    this.physics.add.collider(sword, this.enemys)
+    this.playerEnemyCollider = this.physics.add.collider(this.character, this.enemys, this.hitDamage, undefined, this)
 
 
   }
@@ -78,21 +63,49 @@ export default class MainScene extends Phaser.Scene {
     const dir = new Phaser.Math.Vector2(dx, dy).normalize().scale(150)
     this.character.handleDamage(dir)
     sceneEvents.emit('playerdamage', this.character.health)
+
+    if (this.character.health <= 0) {
+      this.playerEnemyCollider.destroy()
+    }
   }
 
+  createCharacter(): Player {
+    const character = this.add.player(450, 350, 'character', 'run-down-1.png')
+    this.cameras.main.startFollow(character, false, .6, .6)
+    return character
+  }
 
+  createMap() {
+    const map = this.make.tilemap({ key: 'cityDungeon' })
+    const tileset = map.addTilesetImage('magecity', 'tiles')
 
+    map.createLayer('ground', 'magecity')
+    map.createLayer('groundElement', 'magecity')
+
+    const barrierLayer = map.createLayer('barrier', 'magecity')
+    barrierLayer.setCollisionByProperty({ collide: true })
+
+    return { barrierLayer }
+  }
+
+  createDebug(layer: Phaser.Tilemaps.TilemapLayer) {
+    const debugGraphics = this.add.graphics().setAlpha(.2)
+    layer.renderDebug(debugGraphics, {
+      tileColor: null,
+      collidingTileColor: new Phaser.Display.Color(243, 243, 40),
+      faceColor: new Phaser.Display.Color(49, 39, 37, 255)
+    })
+  }
+
+  createSword() {
+    const sword = this.physics.add.group({
+      classType: Phaser.Physics.Arcade.Image
+    })
+
+    return { sword }
+  }
 
   update(t: number, dt: number) {
-    // if (this.hitCount > 0) {
-    //   this.hitCount++
-
-    //   if (this.hitCount >= 10) {
-    //     this.hitCount = 0
-    //   }
-    //   return
-    // }
-
     this.character.update(this.cursors)
   }
 
