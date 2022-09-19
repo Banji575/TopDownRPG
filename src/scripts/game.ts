@@ -1,4 +1,5 @@
 import 'phaser'
+import { GameUi } from './scenes/gameUi'
 import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
 
@@ -15,11 +16,11 @@ const config = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT
   },
-  scene: [PreloadScene, MainScene],
+  scene: [PreloadScene, MainScene, GameUi],
   physics: {
     default: 'arcade',
     arcade: {
-      debug: false,
+      debug: true,
 
     }
   }
