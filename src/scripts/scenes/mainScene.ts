@@ -24,6 +24,7 @@ export default class MainScene extends Phaser.Scene {
   create() {
     const animController = new AnimationController(this.anims)
     animController.create(typeAnimation.enemy)
+    animController.create(typeAnimation.character)
 
     const map = this.make.tilemap({ key: 'cityDungeon' })
     const tileset = map.addTilesetImage('magecity', 'tiles')
@@ -47,44 +48,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.cameras.main.startFollow(this.character, false, .6, .6)
 
-    //char idle down
-    this.anims.create({
-      key: 'character-idle-down',
-      frames: [{ key: 'character', frame: 'run-down-1.png' }]
-    })
-    //char idle up
-    this.anims.create({
-      key: 'character-idle-up',
-      frames: [{ key: 'character', frame: 'run-up-1.png' }]
-    })
-    // char idle-side
-    this.anims.create({
-      key: 'character-idle-side',
-      frames: [{ key: 'character', frame: 'run-side-1.png' }]
-    })
-    //char run down
-    this.anims.create({
-      key: 'character-run-down',
-      frames: this.anims.generateFrameNames('character', { start: 1, end: 8, prefix: 'run-down-', suffix: '.png' }),
-      repeat: -1,
-      frameRate: 13
-    })
-    // char run up
-    this.anims.create({
-      key: 'character-run-up',
-      frames: this.anims.generateFrameNames('character', { start: 1, end: 8, prefix: 'run-up-', suffix: '.png' }),
-      repeat: -1,
-      frameRate: 13
 
-    })
-    //char run side
-    this.anims.create({
-      key: 'character-run-side',
-      frames: this.anims.generateFrameNames('character', { start: 1, end: 8, prefix: 'run-side-', suffix: '.png' }),
-      repeat: -1,
-      frameRate: 13
-
-    })
 
 
 
@@ -98,6 +62,8 @@ export default class MainScene extends Phaser.Scene {
         enemy.body.onCollide = true
       }
     })
+
+
 
     this.enemys.get(100, 100, 'enemy')
     this.enemys.get(150, 150, 'enemy')

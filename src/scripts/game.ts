@@ -9,6 +9,7 @@ const config = {
   type: Phaser.AUTO,
   backgroundColor: '#ffffff',
   scale: {
+    zoom: 1.5,
     parent: 'phaser-game',
     // mode: Phaser.Scale.FIT,
     // autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -23,6 +24,7 @@ const config = {
 
     }
   }
+
 }
 
 window.addEventListener('load', () => {
