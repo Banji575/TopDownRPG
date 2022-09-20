@@ -4,6 +4,7 @@ import '../components/Player/Player'
 import { Player } from "../components/Player/Player"
 
 import { sceneEvents } from "../components/events/EventsController"
+import { Chest } from "../components/chests/Chest"
 
 export default class MainScene extends Phaser.Scene {
 
@@ -11,6 +12,8 @@ export default class MainScene extends Phaser.Scene {
   private character: Player
   private enemys: Phaser.Physics.Arcade.Group
   private playerEnemyCollider: Phaser.Physics.Arcade.Collider
+  private sword: Phaser.Physics.Arcade.Group
+  private chests: Phaser.Physics.Arcade.Group
 
   constructor() {
     super({ key: 'MainScene' })
@@ -25,12 +28,13 @@ export default class MainScene extends Phaser.Scene {
     const animController = new AnimationController(this.anims)
     animController.create(typeAnimation.enemy)
     animController.create(typeAnimation.character)
+    animController.create(typeAnimation.chest)
 
     const { barrierLayer } = this.createMap()
     this.createDebug(barrierLayer)
 
     const { sword } = this.createSword()
-
+    this.sword = sword
 
     this.enemys = this.physics.add.group({
       classType: Enemy,
@@ -40,6 +44,14 @@ export default class MainScene extends Phaser.Scene {
       }
     })
 
+    // const chest = this.add.sprite(130, 130, 'treasure', 'chest2-0.png')
+    // this.time.delayedCall(2000, ()=>{
+    //   console.log(chest.anims.play('chest-open'))
+    // chest.anims.play('chest-open')
+
+    // },undefined, this)
+
+
     this.character = this.createCharacter()
     this.character.setSword(sword)
 
@@ -48,10 +60,25 @@ export default class MainScene extends Phaser.Scene {
 
     this.physics.add.collider(barrierLayer, this.character)
     this.physics.add.collider(barrierLayer, this.enemys)
-    this.physics.add.collider(sword, barrierLayer)
-    this.physics.add.collider(sword, this.enemys)
+    this.physics.add.collider(sword, barrierLayer, (obj1) => this.killAndHide(obj1), undefined, this)
+    this.physics.add.collider(sword, this.enemys, (obj1, obj2) => {
+      this.killAndHide(obj1)
+      this.killAndHide(obj2)
+    }, undefined, this)
+    this.physics.add.collider(this.character, this.chests, this.playerChestCollisionHandler, undefined, this)
     this.playerEnemyCollider = this.physics.add.collider(this.character, this.enemys, this.hitDamage, undefined, this)
+    // this.physics.add.collider(sword, this.enemys, ()=>console.log('hello world'), undefined, this)
 
+  }
+
+  playerChestCollisionHandler(obj1, obj2) {
+    const character = obj1 as Player
+    character.setChest(obj2)
+  }
+
+  killAndHide(obj: Phaser.GameObjects.GameObject) {
+    obj.setActive(false)
+    obj.destroy()
 
   }
 
@@ -85,8 +112,21 @@ export default class MainScene extends Phaser.Scene {
     const barrierLayer = map.createLayer('barrier', 'magecity')
     barrierLayer.setCollisionByProperty({ collide: true })
 
+    const chestLayer = map.getObjectLayer('chest')
+
+    this.chests = this.physics.add.group({
+      classType: Chest
+    })
+
+    chestLayer.objects.forEach(chest => {
+      const chestObj = this.chests.get(chest.x, chest.y, 'treasure', 'chest2-0.png') as Phaser.Physics.Arcade.Sprite
+      chestObj.setOrigin(-.5, .5)
+
+    })
     return { barrierLayer }
   }
+
+
 
   createDebug(layer: Phaser.Tilemaps.TilemapLayer) {
     const debugGraphics = this.add.graphics().setAlpha(.2)

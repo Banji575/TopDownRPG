@@ -1,6 +1,7 @@
 export enum typeAnimation {
     character = 'character',
-    enemy = 'enemy'
+    enemy = 'enemy',
+    chest = 'chest'
 }
 
 export class AnimationController {
@@ -14,6 +15,9 @@ export class AnimationController {
                 return this.#characterAnims()
             case typeAnimation.enemy:
                 return this.#enemyAnims()
+            case typeAnimation.chest:
+                return this.#chestAnims()
+
         }
     }
 
@@ -110,6 +114,18 @@ export class AnimationController {
             repeat: -1,
             frameRate: 6
 
+        })
+    }
+
+    #chestAnims() {
+        this.anims.create({
+            key: 'chest-open',
+            frames: this.anims.generateFrameNames('treasure', { start: 0, end: 1, prefix: 'chest2-', suffix: '.png' })
+        })
+
+        this.anims.create({
+            key: 'chest-closed',
+            frames: this.anims.generateFrameNames('treasure', { start: 1, end: 0, prefix: 'chest2-', suffix: '.png' })
         })
     }
 }

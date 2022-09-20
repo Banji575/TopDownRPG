@@ -1,0 +1,92 @@
+{"frames": [
+
+{
+	"filename": "chest2-0.png",
+	"frame": {"x":1,"y":1,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+{
+	"filename": "chest2-1.png",
+	"frame": {"x":35,"y":1,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+{
+	"filename": "sCoins-0.png",
+	"frame": {"x":1,"y":35,"w":12,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+{
+	"filename": "sCoins-1.png",
+	"frame": {"x":15,"y":35,"w":11,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+{
+	"filename": "sCoins-2.png",
+	"frame": {"x":41,"y":35,"w":10,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+{
+	"filename": "sCoins-3.png",
+	"frame": {"x":15,"y":35,"w":11,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+{
+	"filename": "sCoins-4.png",
+	"frame": {"x":1,"y":35,"w":12,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+{
+	"filename": "sCoins-5.png",
+	"frame": {"x":28,"y":35,"w":11,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+{
+	"filename": "sCoins-6.png",
+	"frame": {"x":53,"y":35,"w":10,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+{
+	"filename": "sCoins-7.png",
+	"frame": {"x":28,"y":35,"w":11,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":16},
+	"sourceSize": {"w":16,"h":16}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "treasure.png",
+	"format": "RGBA8888",
+	"size": {"w":68,"h":52},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:b7e3ca990b22e0a0b25475128c492923:050a5b162675093a6f6a57cf1374806d:f5102e10802bf57b1ffb114ab12e46ca$"
+}
+}

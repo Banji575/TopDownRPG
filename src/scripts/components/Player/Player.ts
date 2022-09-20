@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { Chest } from "../chests/Chest";
 
 declare global {
     namespace Phaser.GameObjects {
@@ -21,6 +22,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     private sword: Phaser.Physics.Arcade.Group
     private damageTime = 0
     private _health = 3
+    private activeChest: Chest
 
     get health() {
         return this._health
@@ -36,6 +38,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     setSword(sword: Phaser.Physics.Arcade.Group) {
         this.sword = sword
+    }
+
+    setChest(chest:Chest){
+        this.activeChest = chest
     }
 
     handleDamage(dir: Phaser.Math.Vector2) {
@@ -109,6 +115,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         if (this.healthState === HealthState.DAMAGE || this.healthState === HealthState.DEAD) return
 
         if (Phaser.Input.Keyboard.JustDown(cursors.space)) {
+            if(this.activeChest){
+                this.activeChest.open()
+            }
             this.throwSword()
             return
         }
